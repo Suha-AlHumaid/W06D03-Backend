@@ -2,14 +2,16 @@ const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
 const cors = require("cors");
+const morgan = require("morgan");
 
 dotenv.config();
 
 const PORT = process.env.PORT;
 
-// App Level Middleware
+//built-in level middleware
 app.use(express.json());
 app.use(cors());
+app.use(morgan("dev"));
 
 ////////////////////////
 let toDos = [
@@ -22,7 +24,8 @@ let toDos = [
 const todosRouter = require("./routers/routes/todos");
 app.use("/todos", todosRouter);
 
-///////////////////////////
+//////////////////////////
+
 app.listen(PORT, () => {
   console.log(`server is running ${PORT}`);
 });

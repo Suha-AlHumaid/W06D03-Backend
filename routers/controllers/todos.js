@@ -1,5 +1,10 @@
 const getAllTodos = (req, res) => {
-  res.status(200).json(toDos);
+    try {
+        res.status(200).json(toDos);
+    } catch (error) {
+        res.status(400).json(error.message);
+    }
+
 };
 
 const getTodo = (req, res) => {
