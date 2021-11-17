@@ -16,7 +16,7 @@ let toDos = [
  app.get("/todos", (req,res)=>{
   res.status(200).json(toDos)
 })
-// get task by by query
+// get task by query
 app.get("/todo/", (req, res) => {
   try {
     const { id } = req.query;
@@ -29,6 +29,14 @@ app.get("/todo/", (req, res) => {
   } catch (error) {
     res.status(400).json(error);
   }
+});
+
+////add new task
+app.post("/todo", (req, res) => {
+  let newId = toDos.length;
+  const { name, isComplete, isDele } = req.body;
+  toDos.push({ name, isComplete, isDele, id: newId });
+  res.status(200).json(toDos);
 });
 
 ///////////////////////////
