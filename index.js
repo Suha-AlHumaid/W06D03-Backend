@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 app.use(express.json()); //Json data
 dotenv.config();
+
 const PORT = process.env.PORT;
 ////////////////////////
 let toDos = [
@@ -12,6 +13,8 @@ let toDos = [
   { name: "sleep Again", isDele: false, id: 2 },//elem
 ];
 
+
+// Routers 
  ///show todos data
  app.get("/todos", (req,res)=>{
   res.status(200).json(toDos)
@@ -67,6 +70,6 @@ app.post("/todo", (req, res) => {
   
 
 ///////////////////////////
-app.listen(4000, () => {
+app.listen(PORT, () => {
   console.log(`server is running ${PORT}`);
 });
