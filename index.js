@@ -39,6 +39,21 @@ app.post("/todo", (req, res) => {
   res.status(200).json(toDos);
 });
 
+
+  //Update list by id
+  app.put("/todo/:id", (req,res)=>{
+    const {id}= req.params
+    const {name} = req.body
+    toDos.forEach(elem =>{
+    if(elem.id == id) {
+      elem.name = name
+    }
+    })
+    res.status(200).json(toDos)
+    })
+
+  
+
 ///////////////////////////
 app.listen(4000, () => {
   console.log(`server is running ${PORT}`);
