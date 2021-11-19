@@ -1,13 +1,12 @@
-let toDos = [
-  { name: "Sleep", isComplete: false, isDele: false, id: 0 }, //elem.name
-  { name: "Eat", isComplete: false, isDele: false, id: 1 }, //elem
-  { name: "sleep Again", isComplete: false, isDele: false, id: 2 }, //elem
-];
+const fs = require("fs");
 
 const getAllTodos = (req, res) => {
   try {
+    fs.readFile("./db/data.json", function (err, data) {
+      const toDos = JSON.parse(data.toString());
     const todos = toDos.filter((elem) => elem.isDele == false);
     res.status(200).json(todos);
+  });
   } catch (error) {
     res.status(400).json(error.message);
   }
@@ -15,6 +14,8 @@ const getAllTodos = (req, res) => {
 
 const getTodo = (req, res) => {
   try {
+    fs.readFile("./db/data.json", function (err, data) {
+      const toDos = JSON.parse(data.toString());
     const { id } = req.query;
     const todo = toDos.find((elem) => elem.id == id); // elem.id === Number(id)
     if (todo) {
@@ -22,19 +23,28 @@ const getTodo = (req, res) => {
     } else {
       res.status(400).json("not found");
     }
+  });
   } catch (error) {
     res.status(400).json(error);
   }
 };
 
 const addTodo = (req, res) => {
-  let newId = toDos.length;
-  const { name, isComplete, isDele } = req.body;
-  toDos.push({ name, isComplete, isDele, id: newId });
-  res.status(200).json(toDos);
+  fs.readFile("./db/data.json", function (err, data) {
+    const toDos = JSON.parse(data.toString());
+    let newId = toDos.length;
+    const { name, isComplete, isDele } = req.body;
+    toDos.push({ name, isComplete, isDele, id: newId });
+    fs.writeFile("./db/data.json", JSON.stringify(toDos), () => {
+      console.log("Added to file successfully");
+    });
+    res.status(200).json(toDos);
+  });
 };
 
 const updateTodo = (req, res) => {
+  fs.readFile("./db/data.json", function (err, data) {
+    const toDos = JSON.parse(data.toString());
   const { id } = req.params;
   const { name } = req.body;
   toDos.forEach((elem) => {
@@ -43,9 +53,15 @@ const updateTodo = (req, res) => {
     }
   });
   res.status(200).json(toDos);
+  fs.writeFile("./db/data.json", JSON.stringify(toDos), () => {
+    console.log("Added to file successfully");
+  });
+});
 };
 
 const deleTodo = (req, res) => {
+  fs.readFile("./db/data.json", function (err, data) {
+    const toDos = JSON.parse(data.toString());
   const { id } = req.params;
   toDos.forEach((elem) => {
     if (elem.id == id) {
@@ -53,6 +69,10 @@ const deleTodo = (req, res) => {
     }
   });
   res.status(200).json(toDos);
+  fs.writeFile("./db/data.json", JSON.stringify(toDos), () => {
+    console.log("Added to file successfully");
+  });
+});
 };
 
 module.exports = {

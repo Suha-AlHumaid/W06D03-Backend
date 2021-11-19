@@ -3,7 +3,6 @@ const app = express();
 const dotenv = require("dotenv");
 const cors = require("cors");
 const morgan = require("morgan");
-const db = require("./db/db");
 dotenv.config();
 
 const PORT = process.env.PORT;
