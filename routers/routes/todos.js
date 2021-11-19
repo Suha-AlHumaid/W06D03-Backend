@@ -11,6 +11,7 @@ const {
 const todosRouter = express.Router();
 ///show todos data
 todosRouter.get("/todos", getAllTodos);
+
 // get task by query
 todosRouter.get("/todo", getTodo);
 

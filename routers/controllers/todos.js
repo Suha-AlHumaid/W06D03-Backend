@@ -1,5 +1,7 @@
+// import file sysytem
 const fs = require("fs");
 
+///show todos data
 const getAllTodos = (req, res) => {
   try {
     fs.readFile("./db/data.json", function (err, data) {
@@ -12,12 +14,13 @@ const getAllTodos = (req, res) => {
   }
 };
 
+// get task by query
 const getTodo = (req, res) => {
   try {
     fs.readFile("./db/data.json", function (err, data) {
       const toDos = JSON.parse(data.toString());
     const { id } = req.query;
-    const todo = toDos.find((elem) => elem.id == id); // elem.id === Number(id)
+    const todo = toDos.find((elem) => elem.id == id); 
     if (todo) {
       res.status(200).json(todo);
     } else {
@@ -29,6 +32,7 @@ const getTodo = (req, res) => {
   }
 };
 
+////add new task
 const addTodo = (req, res) => {
   fs.readFile("./db/data.json", function (err, data) {
     const toDos = JSON.parse(data.toString());
@@ -42,6 +46,8 @@ const addTodo = (req, res) => {
   });
 };
 
+
+//Update list by id
 const updateTodo = (req, res) => {
   fs.readFile("./db/data.json", function (err, data) {
     const toDos = JSON.parse(data.toString());
@@ -59,6 +65,7 @@ const updateTodo = (req, res) => {
 });
 };
 
+//Soft delete
 const deleTodo = (req, res) => {
   fs.readFile("./db/data.json", function (err, data) {
     const toDos = JSON.parse(data.toString());
