@@ -3,7 +3,7 @@ const app = express();
 const dotenv = require("dotenv");
 const cors = require("cors");
 const morgan = require("morgan");
-
+const db = require("./db/db");
 dotenv.config();
 
 const PORT = process.env.PORT;
@@ -14,15 +14,11 @@ app.use(cors());
 app.use(morgan("dev"));
 
 ////////////////////////
-let toDos = [
-  { name: "Sleep", isDele: false, id: 0 }, //elem.name
-  { name: "Eat", isDele: false, id: 1 }, //elem
-  { name: "sleep Again", isDele: false, id: 2 }, //elem
-];
+
 
 // Todos
 const todosRouter = require("./routers/routes/todos");
-app.use("/todos", todosRouter);
+app.use("/", todosRouter);
 
 //////////////////////////
 

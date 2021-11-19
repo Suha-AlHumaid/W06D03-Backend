@@ -12,7 +12,7 @@ const todosRouter = express.Router();
 ///show todos data
 todosRouter.get("/todos", getAllTodos);
 // get task by query
-todosRouter.get("/todo/", getTodo);
+todosRouter.get("/todo", getTodo);
 
 ////add new task
 todosRouter.post("/todo", addTodo);
@@ -21,5 +21,5 @@ todosRouter.post("/todo", addTodo);
 todosRouter.put("/todo/:id", updateTodo);
 
 //Soft delete
-todosRouter.put("/delete/:id", deleTodo);
+todosRouter.put("/delTodo/:id", deleTodo);
 module.exports = todosRouter;

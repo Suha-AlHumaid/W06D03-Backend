@@ -1,10 +1,16 @@
-const getAllTodos = (req, res) => {
-    try {
-        res.status(200).json(toDos);
-    } catch (error) {
-        res.status(400).json(error.message);
-    }
+let toDos = [
+  { name: "Sleep", isComplete: false, isDele: false, id: 0 }, //elem.name
+  { name: "Eat", isComplete: false, isDele: false, id: 1 }, //elem
+  { name: "sleep Again", isComplete: false, isDele: false, id: 2 }, //elem
+];
 
+const getAllTodos = (req, res) => {
+  try {
+    const todos = toDos.filter((elem) => elem.isDele == false);
+    res.status(200).json(todos);
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
 };
 
 const getTodo = (req, res) => {
@@ -12,7 +18,7 @@ const getTodo = (req, res) => {
     const { id } = req.query;
     const todo = toDos.find((elem) => elem.id == id); // elem.id === Number(id)
     if (todo) {
-      res.status(200).json(toDos);
+      res.status(200).json(todo);
     } else {
       res.status(400).json("not found");
     }
