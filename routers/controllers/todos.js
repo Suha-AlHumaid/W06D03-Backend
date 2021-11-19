@@ -37,8 +37,8 @@ const addTodo = (req, res) => {
   fs.readFile("./db/data.json", function (err, data) {
     const toDos = JSON.parse(data.toString());
     let newId = toDos.length;
-    const { name, isComplete, isDele } = req.body;
-    toDos.push({ name, isComplete, isDele, id: newId });
+    const { name } = req.body;
+    toDos.push({ name, isComplete: false, isDele:false, id: newId });
     fs.writeFile("./db/data.json", JSON.stringify(toDos), () => {
       console.log("Added to file successfully");
     });
@@ -58,10 +58,11 @@ const updateTodo = (req, res) => {
       elem.name = name;
     }
   });
-  res.status(200).json(toDos);
+
   fs.writeFile("./db/data.json", JSON.stringify(toDos), () => {
     console.log("Added to file successfully");
   });
+  res.status(200).json(toDos);
 });
 };
 
@@ -75,10 +76,11 @@ const deleTodo = (req, res) => {
       elem.isDele = true;
     }
   });
-  res.status(200).json(toDos);
+
   fs.writeFile("./db/data.json", JSON.stringify(toDos), () => {
     console.log("Added to file successfully");
   });
+  res.status(200).json(toDos);
 });
 };
 
